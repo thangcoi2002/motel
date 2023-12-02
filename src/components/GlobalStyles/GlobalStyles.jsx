@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types'
 import './GlobalStyles.scss';
-import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
 function GlobalStyles({ children }) {
     return children;

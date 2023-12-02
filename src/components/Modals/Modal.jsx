@@ -34,8 +34,6 @@ function Modal({
 
     secondaryAction();
   };
-  
-
   if (!isOpen) {
     return null;
   }
@@ -127,7 +125,7 @@ function Modal({
               {/*body*/}
               <div className=" p-6">{body}</div>
               {/*footer*/}
-              <div className="inline-flex float-right text-xl gap-2 p-4">
+              <div className="inline-flex text-xl gap-2 p-4">
                 <Button onClick={handleSubmit} label={actionLabel} />
                 {secondaryAction && secondaryActionLabel && (
                   <Button

@@ -1,11 +1,13 @@
-function Button({ label, onClick, disabled }) {
+function Button({ label, onClick, disabled, icon, className,type }) {
   return (
     <button
       disabled={disabled}
       onClick={onClick}
-      className={`
+      className={`${className}
       w-full
-      h-9
+      h-full
+      pt-5
+      pb-6
         relative
         disabled:opacity-70
         disabled:cursor-not-allowed
@@ -14,6 +16,9 @@ function Button({ label, onClick, disabled }) {
         transition
         `}
     >
+      {icon && (
+        <img src={icon} alt="image-error" className="absolute left-4 top-3 w-[30px] h-[30px]" />
+      )}
       {label}
     </button>
   );

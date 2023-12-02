@@ -1,9 +1,13 @@
-
 import { useState } from "react";
 import MenuItem from "./MenuItem";
 import { MenuIcon } from "~/components/Icons";
+import useLoginModal from "~/hooks/useLoginModal";
+import useRegisterModal from "~/hooks/useRegisterModal";
 
 function Menu() {
+  const currentUser = false;
+  const loginModal = useLoginModal() 
+  const registerModal = useRegisterModal() 
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleOpen = () => {
@@ -55,10 +59,19 @@ function Menu() {
         >
           <div className="flex flex-col cursor-pointer mt-5">
             <>
-              <MenuItem label="Thông tin cá nhân" onClick={() => {}} />
-              <MenuItem label="Phòng trọ đã đặt" onClick={() => {}} />
-              <MenuItem label="Phòng trọ yêu thích" onClick={() => {}} />
-              <MenuItem label="Đăng xuất" onClick={() => {}} />
+              {currentUser ? (
+                <>
+                  <MenuItem label="Thông tin cá nhân" onClick={() => {}} />
+                  <MenuItem label="Phòng trọ đã đặt" onClick={() => {}} />
+                  <MenuItem label="Phòng trọ yêu thích" onClick={() => {}} />
+                  <MenuItem label="Đăng xuất" onClick={() => {}} />
+                </>
+              ) : (
+                <>
+                  <MenuItem label="Đăng nhập" onClick={() => loginModal.onOpen()} />
+                  <MenuItem label="Đăng ký" onClick={() => registerModal.onOpen()} />
+                </>
+              )}
             </>
           </div>
         </div>

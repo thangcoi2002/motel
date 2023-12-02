@@ -5,7 +5,7 @@ import useSearchModal from "~/hooks/useSearchModal";
 import * as provinceService from "~/services/provinceService";
 
 function SearchModal() {
-  const { isOpen, onClose } = useSearchModal();
+  const searchModal = useSearchModal();
   const [province, setProvince] = useState([]);
   const [district, setDistrict] = useState([]);
   const [select, setSelect] = useState("");
@@ -21,10 +21,14 @@ function SearchModal() {
       });
   }, []);
 
+  const handleCodeName = (data) => {
+    return data.split(",");
+  };
+
   useEffect(() => {
     if (select) {
       provinceService
-        .getDistrict(select.province)
+        .getDistrict(handleCodeName(select.province)[0])
         .then((result) => {
           setDistrict(result.districts);
         })
@@ -40,11 +44,12 @@ function SearchModal() {
     setSelect(newData);
   };
 
-  console.log(select);
   const onSubmit = () => {
-   if(select){
-    window.location = `${config.routes.search}?province=${select.province}&district=${select.district}`;
-   }
+    if (select) {
+      window.location = `${config.routes.search}?province=${
+        handleCodeName(select.province)[1]
+      }&district=${select.district}`;
+    }
   };
 
   const body = (
@@ -55,9 +60,9 @@ function SearchModal() {
         onChange={(e) => handleSelect(e)}
         required
       >
-        <option value=''>Chọn tỉnh thành </option>
+        <option value="">Chọn tỉnh thành </option>
         {province.map((data) => (
-          <option key={data.code} value={data.code}>
+          <option key={data.code} value={[data.code, data.name]}>
             {data.name}
           </option>
         ))}
@@ -69,7 +74,7 @@ function SearchModal() {
       >
         <option>Chọn quận huyện </option>
         {district.map((data) => (
-          <option key={data.code} value={data.code}>
+          <option key={data.code} value={data.name}>
             {data.name}
           </option>
         ))}
@@ -79,12 +84,12 @@ function SearchModal() {
 
   return (
     <Modal
-      isOpen={isOpen}
-      onClose={onClose}
+      isOpen={searchModal.isOpen}
+      onClose={searchModal.onClose}
       title="Tìm kiếm theo tỉnh thành"
       onSubmit={onSubmit}
       actionLabel="Tìm kiếm"
-      secondaryAction={onClose}
+      secondaryAction={searchModal.onClose}
       secondaryActionLabel="Hủy"
       body={body}
     />
