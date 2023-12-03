@@ -1,4 +1,6 @@
-function Button({ label, onClick, disabled, icon, className,type }) {
+import PropTypes from "prop-types";
+
+function Button({ label, onClick, disabled, icon, className }) {
   return (
     <button
       disabled={disabled}
@@ -17,11 +19,22 @@ function Button({ label, onClick, disabled, icon, className,type }) {
         `}
     >
       {icon && (
-        <img src={icon} alt="image-error" className="absolute left-4 top-3 w-[30px] h-[30px]" />
+        <img
+          src={icon}
+          alt="image-error"
+          className="absolute left-4 top-3 w-[30px] h-[30px]"
+        />
       )}
       {label}
     </button>
   );
 }
 
+Button.propTypes = {
+  label: PropTypes.string.isRequired,
+  onClick: PropTypes.func,
+  disabled: PropTypes.bool,
+  icon: PropTypes.string,
+  className: PropTypes.string,
+};
 export default Button;

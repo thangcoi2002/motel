@@ -1,4 +1,6 @@
+import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
+
 import Button from "~/components/Button";
 import { CloseIcon } from "../Icons";
 
@@ -141,5 +143,16 @@ function Modal({
     </>
   );
 }
+
+Modal.propTypes = {
+  isOpen: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  title: PropTypes.func.isRequired,
+  body: PropTypes.node.isRequired,
+  actionLabel: PropTypes.string.isRequired,
+  secondaryAction: PropTypes.func,
+  secondaryActionLabel: PropTypes.string,
+};
 
 export default Modal;

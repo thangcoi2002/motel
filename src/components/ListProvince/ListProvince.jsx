@@ -1,33 +1,36 @@
-import { useEffect, useState } from "react";
+import PropTypes from "prop-types";
+
 import ListItems from "./ListItems";
-import * as provinceService from "~/services/provinceService";
 
-function ListProvince() {
-  const [province, setProvince] = useState([]);
+function ListProvince({ isActive }) {
+  const typeMotel = [
+    {
+      name: "Trọ sinh viên",
+    },
+    {
+      name: "Chung cư mini",
+    },
+    {
+      name: "Chung cư",
+    },
+  ];
 
-  useEffect(() => {
-    provinceService
-      .getProvince()
-      .then((province) => {
-        setProvince(province);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
   return (
     <div
       className="
         pt-4
         pb-4
-        flex
-        overflow-x-auto"
+        flex"
     >
-      {province.map((data) => (
-        <ListItems key={data.name} data={data} />
+      {typeMotel.map((data) => (
+        <ListItems key={data.name} data={data} isActive={isActive} />
       ))}
     </div>
   );
 }
+
+ListProvince.propTypes = {
+  isActive: PropTypes.string,
+};
 
 export default ListProvince;

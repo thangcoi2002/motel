@@ -1,28 +1,32 @@
-import { useNavigate } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { useNavigate } from "react-router-dom";
 
-function ListItems({data}) {
+function ListItems({ data, isActive }) {
   const navigate = useNavigate();
+  const isHighlighted = data.name === isActive;
 
   const handleFilter = () => {
-    navigate(`/search?province=${data.name}`)
+    navigate(`/search?type=${data.name}`);
   };
 
   return (
     <div
-      className="
+      className={`
       border
       border-gray-300
       m-2
       rounded-3xl
+      w-full
     hover:text-neutral-800 
     transition 
-    cursor-pointer"
+    cursor-pointer
+    ${isHighlighted && "bg-gray-300"}
+    `}
       onClick={handleFilter}
     >
       <div
         className=" 
         h-16
-        w-[140px]
       flex 
       justify-center
       items-center 
@@ -33,6 +37,11 @@ function ListItems({data}) {
       </div>
     </div>
   );
+}
+
+ListItems.propTypes = {
+  data: PropTypes.object.isRequired,
+  isActive: PropTypes.string
 }
 
 export default ListItems;
