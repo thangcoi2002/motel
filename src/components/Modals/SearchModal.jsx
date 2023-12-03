@@ -62,13 +62,14 @@ function SearchModal() {
         }&district=${select.district}`
       );
       searchModal.onClose();
+    }else{
+      navigate(
+        `?type=${type}&province=${handleCodeName(select.province)[1]}&district=${
+          select.district
+        }`
+      );
+      searchModal.onClose();
     }
-    navigate(
-      `?type=${type}&province=${handleCodeName(select.province)[1]}&district=${
-        select.district
-      }`
-    );
-    searchModal.onClose();
   };
 
   const body = (

@@ -8,14 +8,24 @@ function DefaultLayout({ children }) {
     <div>
       <Header />
       <div className="flex">
-        <div className="fixed
+        <div
+          className="fixed
+        w-full
         bottom-0 
         md:relative
-        md:w-[300px]
-        w-full">
+        md:w-1/4
+        mr-4
+        "
+        >
           <SideBar />
         </div>
-        <div className="w-full">{children}</div>
+        <div
+          className="
+          w-full 
+          mb-[7rem]"
+        >
+          {children}
+        </div>
       </div>
     </div>
   );

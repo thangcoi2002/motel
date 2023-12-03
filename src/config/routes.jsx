@@ -8,6 +8,7 @@ const routes = {
   booked: "/booked",
   myRoom: "/my-room",
   favorite: "/favorite",
+  detail: "/detail/:id",
 
   search: "/search"
 };

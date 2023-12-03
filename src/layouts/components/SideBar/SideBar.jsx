@@ -58,8 +58,9 @@ function SideBar() {
       className={`
         flex
         md:inline-block
+        w-full
         bg-white
-        ${scrolled && "md:fixed"}`}
+        ${scrolled && "md:fixed md:w-1/5"}`}
     >
       {MENU_ITEM.map((item) => (
         <SideItems key={item.name} data={item} />

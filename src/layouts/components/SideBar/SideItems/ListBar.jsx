@@ -17,6 +17,7 @@ function ListBar({ data }) {
   p-5
   text-xl
   select-none
+  hover:bg-red-100
   "
     >
       {data.icon}

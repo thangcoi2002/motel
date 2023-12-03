@@ -1,5 +1,10 @@
+import CardMotel from "~/components/CardMotel";
 function MyRoom() {
-    return ( <div>MyRoom</div> );
+  return (
+    <div>
+      <CardMotel />
+    </div>
+  );
 }
 
 export default MyRoom;

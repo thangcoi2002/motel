@@ -1,5 +1,10 @@
+import CardMotel from "~/components/CardMotel";
 function Booked() {
-    return ( <div>Booked</div> );
+  return (
+    <div>
+      <CardMotel />
+    </div>
+  );
 }
 
 export default Booked;

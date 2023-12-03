@@ -1,5 +1,10 @@
+import CardMotel from "~/components/CardMotel";
 function Favorite() {
-  return <div>Favorite</div>;
+  return (
+    <div>
+      <CardMotel />
+    </div>
+  );
 }
 
 export default Favorite;

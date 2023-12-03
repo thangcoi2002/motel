@@ -1,6 +1,9 @@
+import { Link } from "react-router-dom";
+
 function InfoItem() {
   return (
-    <div
+    <Link
+      to={`/detail/1`}
       className="
     cursor-pointer
     w-full
@@ -39,7 +42,7 @@ function InfoItem() {
           <div className="mt-4 text-right text-xl">1.000.000 VNĐ</div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }
 

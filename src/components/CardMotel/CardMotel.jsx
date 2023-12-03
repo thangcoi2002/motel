@@ -6,8 +6,7 @@ function CardMotel() {
       className="
       flex 
       flex-wrap 
-      justify-center
-      mb-16"
+      justify-center"
     >
       <InfoItem />
       <InfoItem />

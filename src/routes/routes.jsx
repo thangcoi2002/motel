@@ -7,6 +7,7 @@ import User from "~/pages/User";
 import Favorite from "~/pages/Favorite";
 import MyRoom from "~/pages/MyRoom";
 import Booked from "~/pages/Booked";
+import Detail from "~/pages/Detail";
 import SearchClient from "~/pages/ClientSearch";
 import NotFound from "~/pages/NotFound";
 
@@ -19,6 +20,7 @@ const publicRoutes = [
   { path: config.routes.booked, component: Booked },
   { path: config.routes.myRoom, component: MyRoom },
   { path: config.routes.favorite, component: Favorite },
+  { path: config.routes.detail, component: Detail },
 
   { path: config.routes.search, component: SearchClient },
 ];
