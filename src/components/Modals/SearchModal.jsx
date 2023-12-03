@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import Modal from "~/components/Modals/Modal";
 import config from "~/config";
 import useSearchModal from "~/hooks/useSearchModal";
@@ -6,6 +7,11 @@ import * as provinceService from "~/services/provinceService";
 
 function SearchModal() {
   const searchModal = useSearchModal();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
+  const type = params.get("type");
+
   const [province, setProvince] = useState([]);
   const [district, setDistrict] = useState([]);
   const [select, setSelect] = useState("");
@@ -41,15 +47,28 @@ function SearchModal() {
   const handleSelect = (e) => {
     const newData = { ...select };
     newData[e.target.name] = e.target.value;
+    if (select.province !== newData.province) {
+      newData.district = "";
+    }
+
     setSelect(newData);
   };
 
   const onSubmit = () => {
-    if (select) {
-      window.location = `${config.routes.search}?province=${
-        handleCodeName(select.province)[1]
-      }&district=${select.district}`;
+    if (select.province && select.district && type === null) {
+      navigate(
+        `${config.routes.search}?province=${
+          handleCodeName(select.province)[1]
+        }&district=${select.district}`
+      );
+      searchModal.onClose();
     }
+    navigate(
+      `?type=${type}&province=${handleCodeName(select.province)[1]}&district=${
+        select.district
+      }`
+    );
+    searchModal.onClose();
   };
 
   const body = (
@@ -57,8 +76,8 @@ function SearchModal() {
       <select
         className="w-full p-4 h-16 text-xl border border-[#dddddd] outline-none"
         name="province"
-        onChange={(e) => handleSelect(e)}
         required
+        onChange={(e) => handleSelect(e)}
       >
         <option value="">Chọn tỉnh thành </option>
         {province.map((data) => (

@@ -1,12 +1,21 @@
-import PropTypes from 'prop-types';
-import { useNavigate } from "react-router-dom";
+import PropTypes from "prop-types";
+import { useLocation, useNavigate } from "react-router-dom";
 
 function ListItems({ data, isActive }) {
   const navigate = useNavigate();
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
+  const province = params.get("province");
+  const district = params.get("district");
+
   const isHighlighted = data.name === isActive;
 
   const handleFilter = () => {
+    if (province && district) {
+      navigate(`?type=${data.name}&province=${province}&district=${district}`);
+    }else if(!province && !district){
     navigate(`/search?type=${data.name}`);
+    }
   };
 
   return (
@@ -41,7 +50,7 @@ function ListItems({ data, isActive }) {
 
 ListItems.propTypes = {
   data: PropTypes.object.isRequired,
-  isActive: PropTypes.string
-}
+  isActive: PropTypes.string,
+};
 
 export default ListItems;

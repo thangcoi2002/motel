@@ -1,8 +1,9 @@
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
+import {IoMdClose} from 'react-icons/io'
 
 import Button from "~/components/Button";
-import { CloseIcon } from "../Icons";
+
 
 function Modal({
   isOpen,
@@ -12,7 +13,7 @@ function Modal({
   body,
   actionLabel,
   secondaryAction,
-  secondaryActionLabel,
+  secondaryActionLabel
 }) {
   const [showModal, setShowModal] = useState(isOpen);
 
@@ -121,13 +122,13 @@ function Modal({
                   "
                   onClick={handleClose}
                 >
-                  <CloseIcon />
+                  <IoMdClose size={24}/>
                 </button>
               </div>
               {/*body*/}
               <div className=" p-6">{body}</div>
               {/*footer*/}
-              <div className="inline-flex text-xl gap-2 p-4">
+              <div className="md:inline-flex text-xl gap-  p-4">
                 <Button onClick={handleSubmit} label={actionLabel} />
                 {secondaryAction && secondaryActionLabel && (
                   <Button
@@ -146,9 +147,9 @@ function Modal({
 
 Modal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
-  onClose: PropTypes.func.isRequired,
-  onSubmit: PropTypes.func.isRequired,
-  title: PropTypes.func.isRequired,
+  onClose: PropTypes.func,
+  onSubmit: PropTypes.func,
+  title: PropTypes.string.isRequired,
   body: PropTypes.node.isRequired,
   actionLabel: PropTypes.string.isRequired,
   secondaryAction: PropTypes.func,
