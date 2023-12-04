@@ -5,6 +5,7 @@ const routes = {
 
   home: "/",
   user: "/user/:id",
+  editProfile: "/user/:id/edit",
   booked: "/booked",
   myRoom: "/my-room",
   favorite: "/favorite",

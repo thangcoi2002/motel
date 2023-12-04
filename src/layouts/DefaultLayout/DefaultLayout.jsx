@@ -10,6 +10,7 @@ function DefaultLayout({ children }) {
       <div className="flex">
         <div
           className="fixed
+        z-10
         w-full
         bottom-0 
         md:relative

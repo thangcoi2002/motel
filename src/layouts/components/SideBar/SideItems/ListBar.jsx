@@ -18,6 +18,7 @@ function ListBar({ data }) {
   text-xl
   select-none
   hover:bg-red-100
+  z-10
   "
     >
       {data.icon}

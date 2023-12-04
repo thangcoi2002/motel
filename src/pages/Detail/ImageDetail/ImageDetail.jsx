@@ -20,7 +20,7 @@ function ImageDetail() {
       <img
         src={url}
         alt="Main Image"
-        className="w-full md:w-3/4  h-[500px] rounded-2xl object-cover "
+        className="w-full md:w-3/4  h-[720px] rounded-2xl object-cover "
       />
 
       <div className="flex w-full md:w-3/4 overflow-x-auto">

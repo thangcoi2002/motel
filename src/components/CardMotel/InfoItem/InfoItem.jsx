@@ -10,9 +10,11 @@ function InfoItem() {
     md:w-1/3
     lg:w-1/4
     xl:w-1/5
-    mt-2
+    pb-10
     mx-6
-    mb-5"
+    mt-5
+    mb-10
+    group"
     >
       <div
         className="
@@ -32,7 +34,10 @@ function InfoItem() {
             className="
             object-cover
             w-full
-            h-[400px]"
+            h-[400px]
+            group-hover:scale-110
+            transition
+            "
           />
         </div>
         <div className="px-4 py-6">

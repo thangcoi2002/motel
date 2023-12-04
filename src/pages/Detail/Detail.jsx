@@ -14,12 +14,32 @@ function Detail() {
             className="w-[40px] h-[40px] rounded-full ml-4"
           />
         </div>
-        <div className="text-2xl font-bold flex justify-between items-center mt-10">
-          <div>TITLE</div>
-          <FaHeart size={30} className="cursor-pointer"/>
+        <div className="flex justify-between items-center mt-10">
+          <div className="text-2xl font-bold ">TITLE</div>
+          <div className="flex items-center font-medium text-2xl cursor-pointer px-4 py-3 select-none group">
+            Lưu trọ
+            <FaHeart size={30} className="mx-3 group-hover:text-rose-500" />
+          </div>
         </div>
         <div className="ml-3 text-neutral-500 font-bold">TYPE</div>
-        <div className="mt-4 text-2xl text-right font-medium text-neutral-500">1.000.000 VNĐ</div>
+        <div className="mt-4 text-2xl text-right font-medium text-neutral-500">
+          <p>1.000.000 VNĐ</p>
+          <button
+            className="
+          border
+          border-green-600
+          bg-neutral-200
+          w-[200px]
+          h-[42px]
+          mt-6
+          rounded-2xl
+          hover:bg-green-600
+          hover:text-white
+          "
+          >
+            Thuê phòng
+          </button>
+        </div>
         <div className="m-4">DESCRIPTION</div>
         <div className="m-4">ADDRESS</div>
       </div>

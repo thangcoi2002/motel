@@ -1,7 +1,13 @@
 import { useState } from "react";
-import { CiMenuFries, CiTimer, CiUser, CiLogout } from "react-icons/ci";
+import {
+  CiMenuFries,
+  CiHeart,
+  CiTimer,
+  CiUser,
+  CiLogout,
+} from "react-icons/ci";
 import { BiSolidEdit } from "react-icons/bi";
-import { FaUserCircle, FaHeart } from "react-icons/fa";
+import { FaUserCircle } from "react-icons/fa";
 
 import MenuItem from "./MenuItem";
 import useLoginModal from "~/hooks/useLoginModal";
@@ -10,7 +16,7 @@ import { useNavigate } from "react-router-dom";
 import config from "~/config";
 
 function Menu() {
-  const currentUser = true;
+  const currentUser = window.localStorage.getItem("token");
   const navigate = useNavigate();
 
   const loginModal = useLoginModal();
@@ -59,6 +65,7 @@ function Menu() {
         <div
           className="
           absolute
+          z-10
           right-0
         rounded-xl
         shadow-md
@@ -66,7 +73,8 @@ function Menu() {
         md:w-[14vw]
       bg-white
         overflow-hidden
-        text-sm"
+        text-sm
+        "
         >
           <div className="flex flex-col cursor-pointer mt-5">
             <>
@@ -75,7 +83,7 @@ function Menu() {
                   <MenuItem
                     label="Thông tin cá nhân"
                     icon={<CiUser size={18} className="m-4" />}
-                    onClick={() => navigate(config.routes.user)}
+                    onClick={() => navigate(config.routes.editProfile)}
                   />
                   <MenuItem
                     label="Phòng trọ đã đặt"
@@ -84,7 +92,7 @@ function Menu() {
                   />
                   <MenuItem
                     label="Phòng trọ yêu thích"
-                    icon={<FaHeart size={18} className="m-4 text-rose-500"/>}
+                    icon={<CiHeart size={18} className="m-4" />}
                     onClick={() => navigate(config.routes.favorite)}
                   />
                   <MenuItem

@@ -3,7 +3,7 @@ import config from "~/config";
 
 // Router change Pages
 import Home from "~/pages/Home";
-import User from "~/pages/User";
+import {User ,EditProfile} from "~/pages/User";
 import Favorite from "~/pages/Favorite";
 import MyRoom from "~/pages/MyRoom";
 import Booked from "~/pages/Booked";
@@ -21,6 +21,8 @@ const publicRoutes = [
   { path: config.routes.myRoom, component: MyRoom },
   { path: config.routes.favorite, component: Favorite },
   { path: config.routes.detail, component: Detail },
+
+  { path: config.routes.editProfile, component: EditProfile },
 
   { path: config.routes.search, component: SearchClient },
 ];

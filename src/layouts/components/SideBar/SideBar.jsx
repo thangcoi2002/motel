@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
-import { CiTimer, CiUser } from "react-icons/ci";
+import { CiTimer, CiUser, CiHeart } from "react-icons/ci";
 import { IoHomeOutline } from "react-icons/io5";
 import { BsSend } from "react-icons/bs";
-import { FaHeart } from "react-icons/fa";
 import SideItems from "./SideItems";
 import config from "~/config";
 
@@ -20,7 +19,7 @@ function SideBar() {
     },
     {
       name: "Phòng yêu thích",
-      icon: <FaHeart  size={24} className="m-4 text-rose-500" />,
+      icon: <CiHeart size={24} className="m-4" />,
       to: config.routes.favorite,
     },
     {
