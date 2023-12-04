@@ -1,7 +1,7 @@
 import ListBookedItem from "./ListBookedItem";
 
 function ListBooked() {
-    return ( <div>
+    return ( <div className="mr-12">
         <ListBookedItem />
         <ListBookedItem />
         <ListBookedItem />

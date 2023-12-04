@@ -20,6 +20,12 @@ function ListProvince({ isActive }) {
       className="
         pt-4
         pb-4
+        m-3
+        md:w-2/3
+        md:ml-[30px]
+        lg:w-4/5
+        xl:ml-[30px]
+        xl:w-5/6
         flex"
     >
       {typeMotel.map((data) => (

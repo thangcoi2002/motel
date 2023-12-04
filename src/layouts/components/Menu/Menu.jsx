@@ -70,7 +70,8 @@ function Menu() {
         rounded-xl
         shadow-md
         w-[40vw]
-        md:w-[14vw]
+        md:w-[20vw]
+        lg:w-[14vw]
       bg-white
         overflow-hidden
         text-sm
@@ -82,7 +83,7 @@ function Menu() {
                 <>
                   <MenuItem
                     label="Thông tin cá nhân"
-                    icon={<CiUser size={18} className="m-4" />}
+                    icon={<CiUser size={18} className="m-4"   />}
                     onClick={() => navigate(config.routes.editProfile)}
                   />
                   <MenuItem

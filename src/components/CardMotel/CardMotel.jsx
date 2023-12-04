@@ -5,8 +5,7 @@ function CardMotel() {
     <div
       className="
       flex 
-      flex-wrap 
-      justify-center"
+      flex-wrap "
     >
       <InfoItem />
       <InfoItem />
