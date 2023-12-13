@@ -4,9 +4,11 @@ import { IoIosArrowUp } from "react-icons/io";
 
 import Header from "~/layouts/components/Header";
 import SideBar from "~/layouts/components/SideBar";
+import Loader from "~/layouts/components/Loader";
 
 function DefaultLayout({ children }) {
   const [scrolled, setScrolled] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -17,6 +19,10 @@ function DefaultLayout({ children }) {
       }
     };
 
+    setTimeout(() => {
+      setIsLoading(true);
+    }, 2000);
+    
     window.addEventListener("scroll", handleScroll);
 
     return () => {
@@ -24,26 +30,34 @@ function DefaultLayout({ children }) {
     };
   }, []);
 
+  if (!isLoading) {
+    return (
+      <div className="flex justify-center items-center h-[100vh]">
+        <Loader />
+      </div>
+    );
+  }
+
   return (
-    <div>
+    <div className="select-none">
       <Header />
       <div className="flex">
         <div
           className="fixed
-        z-10
-        w-full
-        bottom-0 
-        md:relative
-        md:w-1/4
-        mr-4
-        "
+      z-10
+      w-full
+      bottom-0 
+      md:relative
+      md:w-1/4
+      mr-4
+      "
         >
           <SideBar />
         </div>
         <div
           className="
-          w-full 
-          mb-[7rem]"
+        w-full 
+        mb-[7rem]"
         >
           {children}
         </div>

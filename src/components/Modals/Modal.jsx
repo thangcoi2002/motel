@@ -1,9 +1,10 @@
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
-import {IoMdClose} from 'react-icons/io'
+import { IoMdClose } from "react-icons/io";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import Button from "~/components/Button";
-
 
 function Modal({
   isOpen,
@@ -13,7 +14,7 @@ function Modal({
   body,
   actionLabel,
   secondaryAction,
-  secondaryActionLabel
+  secondaryActionLabel,
 }) {
   const [showModal, setShowModal] = useState(isOpen);
 
@@ -26,7 +27,8 @@ function Modal({
     onClose();
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
     onSubmit();
   };
 
@@ -43,7 +45,20 @@ function Modal({
 
   return (
     <>
-      <div
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
+      <form
+        onSubmit={handleSubmit}
         className="
           justify-center 
           items-center 
@@ -122,14 +137,14 @@ function Modal({
                   "
                   onClick={handleClose}
                 >
-                  <IoMdClose size={24}/>
+                  <IoMdClose size={24} />
                 </button>
               </div>
               {/*body*/}
               <div className=" p-6">{body}</div>
               {/*footer*/}
               <div className="md:inline-flex text-xl gap-  p-4">
-                <Button onClick={handleSubmit} label={actionLabel} />
+                <Button label={actionLabel} />
                 {secondaryAction && secondaryActionLabel && (
                   <Button
                     onClick={handleSecondaryAction}
@@ -140,7 +155,7 @@ function Modal({
             </div>
           </div>
         </div>
-      </div>
+      </form>
     </>
   );
 }

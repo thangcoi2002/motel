@@ -7,14 +7,22 @@ function ListItems({ data, isActive }) {
   const params = new URLSearchParams(location.search);
   const province = params.get("province");
   const district = params.get("district");
+  const type = params.get("type");
 
   const isHighlighted = data.name === isActive;
 
   const handleFilter = () => {
-    if (province && district) {
+    if (type === data.name) {
+      if (!province && !district) {
+        navigate("/");
+      } else {
+        params.delete("type");
+        navigate(`?${params.toString()}`);
+      }
+    } else if (province && district) {
       navigate(`?type=${data.name}&province=${province}&district=${district}`);
-    }else if(!province && !district){
-    navigate(`/search?type=${data.name}`);
+    } else if (!province && !district) {
+      navigate(`/search?type=${data.name}`);
     }
   };
 

@@ -1,13 +1,47 @@
+import { useState } from "react";
+
 import Modal from "./Modal";
 import useLoginModal from "~/hooks/useLoginModal";
-import LogoGoogle from "~/assets/Images/google.svg";
-import LogoFacebook from "~/assets/Images/facebook.svg";
-import Button from "../Button";
+import * as authService from "~/services/authService";
+import { toast } from "react-toastify";
 
 function LoginModal() {
   const loginModal = useLoginModal();
+  const [data, setData] = useState({});
 
-  const onSubmit = () => {};
+  const handleData = (e) => {
+    const newData = { ...data };
+    newData[e.target.name] = e.target.value;
+    setData(newData);
+  };
+
+  const onSubmit = () => {
+    authService
+      .login(data)
+      .then((data) => {
+        window.localStorage.setItem("token", data.data.token);
+        window.location.reload();
+      })
+      .catch((err) => {
+        console.log(err);
+
+        toast.error(
+          err.response.status === 404
+            ? "Tài khoản không tồn tại"
+            : "Mật khẩu không chính xác",
+          {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+          }
+        );
+      });
+  };
 
   const body = (
     <div className="flex flex-col">
@@ -25,6 +59,11 @@ function LoginModal() {
       border-neutral-300
       outline-none
       "
+        required
+        name="username"
+        value={data.username || ""}
+        onChange={(e) => handleData(e)}
+        autoComplete="username"
       />
 
       <input
@@ -41,11 +80,12 @@ function LoginModal() {
       border-neutral-300
       outline-none
       "
+        required
+        name="password"
+        value={data.password || ""}
+        onChange={(e) => handleData(e)}
+        autoComplete="current-password"
       />
-      <div className="flex flex-col gap-4 mt-3">
-        <Button outline className="border border-gray-300 hover:bg-gray-300 hover:font-semibold h-[48px] text-xl" label="Tiếp tục với Google" icon={LogoGoogle} />
-        <Button outline className="border border-gray-300 hover:bg-gray-300 hover:font-semibold h-[48px] text-xl" label="Tiếp tục với Facebook" icon={LogoFacebook} />
-      </div>
     </div>
   );
 

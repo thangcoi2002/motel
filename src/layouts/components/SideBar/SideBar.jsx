@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { CiTimer, CiUser, CiHeart } from "react-icons/ci";
 import { IoHomeOutline } from "react-icons/io5";
-import { BsSend } from "react-icons/bs";
+import { FiSend } from "react-icons/fi";
 import SideItems from "./SideItems";
 import config from "~/config";
 
@@ -15,7 +15,7 @@ function SideBar() {
     {
       name: "Trang cá nhân",
       icon: <CiUser size={24} className="m-4 " />,
-      to: config.routes.user,
+      to: config.routes.profile,
     },
     {
       name: "Phòng yêu thích",
@@ -28,9 +28,9 @@ function SideBar() {
       to: config.routes.booked,
     },
     {
-      name: "Phòng đã đăng",
-      icon: <BsSend size={24} className="m-4" />,
-      to: config.routes.myRoom,
+      name: "Cho thuê phòng",
+      icon: <FiSend size={24} className="m-4" />,
+      to: config.routes.postMotel,
     },
   ];
 

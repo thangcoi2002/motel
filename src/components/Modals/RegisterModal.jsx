@@ -1,13 +1,49 @@
+import { useState } from "react";
+import "react-toastify/dist/ReactToastify.css";
+
 import Modal from "./Modal";
 import useRegisterModal from "~/hooks/useRegisterModal";
-import LogoGoogle from "~/assets/Images/google.svg";
-import LogoFacebook from "~/assets/Images/facebook.svg";
-import Button from "../Button";
+import * as authService from "~/services/authService";
+import useLoginModal from "~/hooks/useLoginModal";
+import { toast } from "react-toastify";
 
 function RegisterModal() {
   const registerModal = useRegisterModal();
+  const loginModal = useLoginModal();
+  const [data, setData] = useState({});
 
-  const onSubmit = () => {};
+  const handleData = (e) => {
+    const newData = { ...data };
+    newData[e.target.name] = e.target.value;
+    setData(newData);
+  };
+
+  const onSubmit = () => {
+    authService
+      .Register(data)
+      .then((user) => {
+        if (user.status === 200) {
+          setData("");
+          registerModal.onClose();
+          loginModal.onOpen();
+        }
+      })
+      .catch((err) => {
+        if (err.response.status === 409) {
+          toast.error("Tài khoản đã tồn tại!", {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+          });
+        }
+        console.log(err);
+      });
+  };
 
   const body = (
     <div className="flex flex-col">
@@ -26,6 +62,10 @@ function RegisterModal() {
       outline-none
       "
         required
+        name="username"
+        value={data.username || ""}
+        onChange={(e) => handleData(e)}
+        autoComplete="username"
       />
 
       <input
@@ -43,6 +83,10 @@ function RegisterModal() {
       outline-none
       "
         required
+        name="password"
+        value={data.password || ""}
+        onChange={(e) => handleData(e)}
+        autoComplete="password"
       />
 
       <input
@@ -60,6 +104,10 @@ function RegisterModal() {
       outline-none
       "
         required
+        name="fullName"
+        value={data.fullName || ""}
+        onChange={(e) => handleData(e)}
+        autoComplete="fullName"
       />
 
       <input
@@ -77,22 +125,32 @@ function RegisterModal() {
       outline-none
       "
         required
+        name="email"
+        value={data.email || ""}
+        onChange={(e) => handleData(e)}
+        autoComplete="email"
       />
 
-      <div className="flex flex-col gap-4 mt-3">
-        <Button
-          outline
-          className="border border-gray-300 hover:bg-gray-300 hover:font-semibold h-[48px] text-xl"
-          label="Đăng ký với Google"
-          icon={LogoGoogle}
-        />
-        <Button
-          outline
-          className="border border-gray-300 hover:bg-gray-300 hover:font-semibold h-[48px] text-xl"
-          label="Đăng ký với Facebook"
-          icon={LogoFacebook}
-        />
-      </div>
+      <input
+        type="text"
+        placeholder="Nhập địa chỉ ..."
+        className="
+      h-[32px]
+      px-6
+      py-10
+      my-3
+      text-2xl
+      rounded-2xl
+      border
+      border-neutral-300
+      outline-none
+      "
+        required
+        name="address"
+        value={data.address || ""}
+        onChange={(e) => handleData(e)}
+        autoComplete="address"
+      />
     </div>
   );
 

@@ -1,55 +1,42 @@
-import CardMotel from "~/components/CardMotel";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+
+import DetailUser from "~/components/DetailUser";
 import EmptyClient from "~/components/EmptyClient";
+import * as authService from "~/services/authService";
+import * as motelService from "~/services/motelService";
 
 function User() {
-  const currentUser = window.localStorage.getItem("token");
+  const [data, setData] = useState({});
+  const [dataMotel, setDataMotel] = useState([]);
+  const { id } = useParams();
 
-  if (!currentUser) {
+  useEffect(() => {
+    authService
+      .getUser({ id: id })
+      .then((user) => {
+        setData(user.data);
+      })
+      .catch((err) => console.log(err));
+
+    motelService
+      .getMotelUser({ userId: id })
+      .then((motel) => {
+        setDataMotel(motel.data);
+      })
+      .catch((err) => console.log(err));
+  }, [id]);
+
+  if (!data) {
     return (
-      <EmptyClient title="Chưa đăng nhập" description="Vui lòng đăng nhập" />
+      <EmptyClient
+        title="Không tìm được người dùng"
+        description="Vui lòng xem lại người dùng"
+      />
     );
   }
 
-  return (
-    <div className="m-10">
-      <div
-        className="flex
-        flex-col
-        justify-center
-        items-center 
-        md:items-start
-        md:justify-start
-        md:flex-row
-        relative 
-        border-b 
-        border-b-gray-400 
-        pb-11 "
-      >
-        <img
-          src="https://res.cloudinary.com/dd6sxqlso/image/upload/v1699341107/dormitory/cgws4mqrwji923xyc4jm.jpg"
-          alt="avatar"
-          className="
-          w-3/4
-          md:w-[280px]
-          md:h-[280px]
-          rounded-full
-          "
-        />
-        <div className="flex flex-col ml-10 mt-12">
-          <div className="text-5xl font-semibold mb-4">Ngọc thắng</div>
-          <div className="text-xl font-medium opacity-80">
-            Thường Tín , Hà Nội
-          </div>
-        </div>
-      </div>
-      <div className="py-8 px-4">
-        <div className="text-xl font-medium">Nhà trọ đã đăng</div>
-        <div className="mt-10">
-          <CardMotel />
-        </div>
-      </div>
-    </div>
-  );
+  return <DetailUser dataUser={data} dataMotel={dataMotel}/>;
 }
 
 export default User;

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   CiMenuFries,
   CiHeart,
@@ -8,24 +8,39 @@ import {
 } from "react-icons/ci";
 import { BiSolidEdit } from "react-icons/bi";
 import { FaUserCircle } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
+import config from "~/config";
 import MenuItem from "./MenuItem";
 import useLoginModal from "~/hooks/useLoginModal";
 import useRegisterModal from "~/hooks/useRegisterModal";
-import { useNavigate } from "react-router-dom";
-import config from "~/config";
+import * as authService from "~/services/authService";
 
 function Menu() {
-  const currentUser = window.localStorage.getItem("token");
-  const navigate = useNavigate();
+  const [isOpen, setIsOpen] = useState(false);
+  const [data, setData] = useState({});
+  const [currentUser, setCurrentUser] = useState(false);
 
+  const navigate = useNavigate();
   const loginModal = useLoginModal();
   const registerModal = useRegisterModal();
-  const [isOpen, setIsOpen] = useState(false);
 
   const toggleOpen = () => {
     setIsOpen(!isOpen);
   };
+
+  useEffect(() => {
+    const token = window.localStorage.getItem("token");
+    if (token) {
+      setCurrentUser(true);
+      authService
+        .getCurrentUser()
+        .then((user) => {
+          setData(user.data);
+        })
+        .catch((err) => console.log(err));
+    } else setCurrentUser(false);
+  }, []);
 
   return (
     <div className="relative ml-6">
@@ -35,8 +50,6 @@ function Menu() {
         p-4
         md:py-1
         md:px-2
-        border-[1px] 
-        border-neutral-200 
         flex 
         flex-row 
         items-center 
@@ -52,8 +65,8 @@ function Menu() {
         <div className="hidden md:block">
           {currentUser ? (
             <img
-              src="https://scontent.fhan17-1.fna.fbcdn.net/v/t39.30808-6/367499121_818763516616918_1251777448852488623_n.jpg?stp=cp6_dst-jpg&_nc_cat=100&ccb=1-7&_nc_sid=efb6e6&_nc_eui2=AeE4TCPe5Pl5iab5GkebOQxRNGwCY2WyHQQ0bAJjZbIdBCeiWoqQsq6mnJd5DrlabEBzYTqAFh46xyO_WbI-65pw&_nc_ohc=wSO4wuDUA6AAX99DCAl&_nc_ht=scontent.fhan17-1.fna&oh=00_AfBClmInhJkKsbPmZkkMrBTI67Dqj-uuiJif7SmizRiXAA&oe=656F4CC9"
-              alt="avatar"
+              src={data.imageUrl}
+              alt={data.fullName}
               className="rounded-full h-[36px] w-[36px]"
             />
           ) : (
@@ -83,7 +96,7 @@ function Menu() {
                 <>
                   <MenuItem
                     label="Thông tin cá nhân"
-                    icon={<CiUser size={18} className="m-4"   />}
+                    icon={<CiUser size={18} className="m-4" />}
                     onClick={() => navigate(config.routes.editProfile)}
                   />
                   <MenuItem
@@ -99,7 +112,10 @@ function Menu() {
                   <MenuItem
                     label="Đăng xuất"
                     icon={<CiLogout size={18} className="m-4" />}
-                    onClick={() => {}}
+                    onClick={() => {
+                      localStorage.removeItem("token");
+                      location.reload();
+                    }}
                   />
                 </>
               ) : (

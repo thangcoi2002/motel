@@ -10,9 +10,6 @@ function ListProvince({ isActive }) {
     {
       name: "Chung cư mini",
     },
-    {
-      name: "Chung cư",
-    },
   ];
 
   return (

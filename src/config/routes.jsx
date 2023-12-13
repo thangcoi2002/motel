@@ -4,12 +4,14 @@ const routes = {
   notfound: "*",
 
   home: "/",
+  profile: "/profile",
+  editProfile: "/profile/edit",
   user: "/user/:id",
-  editProfile: "/user/:id/edit",
   booked: "/booked",
-  myRoom: "/my-room",
   favorite: "/favorite",
   detail: "/detail/:id",
+  postMotel: "/post-motel",
+  PaymentSuccess: "/payment-success",
 
   search: "/search"
 };

@@ -1,9 +1,11 @@
+import PropTypes from "prop-types";
+
 import { Link } from "react-router-dom";
 
-function InfoItem() {
+function InfoItem({ data }) {
   return (
     <Link
-      to={`/detail/1`}
+      to={`/detail/${data._id}`}
       className="
     cursor-pointer
     w-full
@@ -29,8 +31,8 @@ function InfoItem() {
             rounded-xl"
         >
           <img
-            src="https://res.cloudinary.com/dd6sxqlso/image/upload/v1697549414/m3pkuhptph6aslxs44hw.jpg"
-            alt="motel"
+            src={data.imageUrl[0]}
+            alt="error"
             className="
             object-cover
             w-full
@@ -41,14 +43,20 @@ function InfoItem() {
           />
         </div>
         <div className="px-4 py-6">
-          <div className="text-2xl font-semibold">TITLE</div>
-          <div className="mt-4 text-xl">DESCRIPTION</div>
-          <div className="mt-4 text-xl">ADDRESS : Province - District</div>
-          <div className="mt-4 text-right text-xl">1.000.000 VNĐ</div>
+          <div className="text-2xl font-semibold">{data.title}</div>
+          <div className="mt-4 text-xl">{data.description}</div>
+          <div className="mt-4 text-xl">
+            {data.district + " - " + data.province}
+          </div>
+          <div className="mt-4 text-right text-xl">{data.price} VNĐ</div>
         </div>
       </div>
     </Link>
   );
 }
+
+InfoItem.propTypes = {
+  data: PropTypes.object.isRequired,
+};
 
 export default InfoItem;
