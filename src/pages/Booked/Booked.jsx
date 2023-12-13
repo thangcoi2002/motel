@@ -1,6 +1,6 @@
 import EmptyClient from "~/components/EmptyClient";
 import ListBooked from "./ListBooked";
-import * as bookedService from "~/services/BookedService";
+import * as bookedService from "~/services/bookedService";
 import { useEffect, useState } from "react";
 import PaymentModal from "~/components/Modals/PaymentModal";
 
