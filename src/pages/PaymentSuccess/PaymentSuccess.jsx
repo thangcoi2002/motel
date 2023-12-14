@@ -23,7 +23,7 @@ function PaymentSuccess() {
   useEffect(() => {
     if (success) {
       paymentService
-        .successVnPay({ id: params.vnp_TxnRef })
+        .successVnPay({ id: params.vnp_OrderInfo })
         .then((res) => {
           console.log(res);
         })
