@@ -10,6 +10,7 @@ import * as bookedService from "~/services/bookedService";
 import * as authService from "~/services/authService";
 import EmptyClient from "~/components/EmptyClient";
 import { ToastContainer, toast } from "react-toastify";
+import config from "~/config";
 
 function Detail() {
   const { id } = useParams();
@@ -44,7 +45,7 @@ function Detail() {
         })
         .catch((err) => console.log(err));
 
-        authService
+      authService
         .getCurrentUser()
         .then((user) => {
           if (data && data.userId._id === user.data._id) {
@@ -53,7 +54,7 @@ function Detail() {
         })
         .catch((err) => console.log(err));
     }
-  }, [id, token,data]);
+  }, [id, token, data]);
 
   const addFavorite = (id) => {
     if (!token) warningLogin();
@@ -93,8 +94,8 @@ function Detail() {
       .deleteMotel({ id: id })
       .then((motel) => {
         if (motel.status === 200) {
-          navigator("/");
-        }else if(motel.status === 400 ){
+          navigator(config.routes.home);
+        } else if (motel.status === 400) {
           toast.warn("Đang có người thuê phòng ", {
             position: "top-center",
             autoClose: 5000,
@@ -163,26 +164,51 @@ function Detail() {
             />
 
             {menu && (
-              <button
-                onClick={() => deleteMotel(id)}
+              <div
                 className="
-            bg-white
-            rounded-2xl
-            mt-4
-            absolute
-            right-6
-            top-10
-            text-xl
-            w-[150px]
-            md:w-[100px]
-            py-4
-            px-2
-            hover:bg-neutral-100
-            select-none
-        "
+                flex
+                flex-col
+                bg-slate-100
+                px-2
+                py-4
+                absolute
+                right-6
+                top-16
+                rounded-xl
+                w-[150px]"
               >
-                Xóa bài viết
-              </button>
+                <button
+                  onClick={() => deleteMotel(id)}
+                  className="
+              bg-white
+              rounded-2xl
+              mt-4
+              text-xl
+              py-4
+              px-2
+              hover:bg-neutral-100
+              select-none
+          "
+                >
+                  Xóa bài viết
+                </button>
+                <Link
+                to={`/detail/edit/${id}`}
+                  className="
+              bg-white
+              rounded-2xl
+              mt-4
+              text-xl
+              text-center
+              py-4
+              px-2
+              hover:bg-neutral-100
+              select-none
+          "
+                >
+                  Sửa thông tin
+                </Link>
+              </div>
             )}
           </>
         )}
@@ -200,7 +226,9 @@ function Detail() {
           />
         </Link>
         <div className="flex justify-between items-center mt-10">
-          <div className="text-2xl font-bold ">{data.title}</div>
+          <div className="text-2xl font-bold w-full break-words">
+            {data.title}
+          </div>
           <FaHeart
             onClick={() => addFavorite(id)}
             size={50}
@@ -246,7 +274,7 @@ function Detail() {
             </button>
           )}
         </div>
-        <div className="m-4">{data.description}</div>
+        <div className="m-4 break-words">{data.description}</div>
         <div className="m-4">{data.district + " - " + data.province}</div>
       </div>
     </>

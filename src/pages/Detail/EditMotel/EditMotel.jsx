@@ -1,25 +1,29 @@
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
 import * as provinceService from "~/services/provinceService";
 import * as motelService from "~/services/motelService";
 import EmptyClient from "~/components/EmptyClient";
 import { ToastContainer, toast } from "react-toastify";
 
-function PostMotel() {
+function EditMotel() {
   const token = localStorage.token;
-
-  const [data, setData] = useState({
-    title: "",
-    description: "",
-    price: "",
-    province: "",
-    district: "",
-    type: "",
-    imageUrl: "",
-  });
-  const [loading, setLoading] = useState(false);
+  const { id } = useParams();
+  const [data, setData] = useState({});
+  const [address, setAddress] = useState({ province: "", district: "" });
   const [province, setProvince] = useState([]);
   const [district, setDistrict] = useState([]);
+
+  useEffect(() => {
+    motelService
+      .getDetailMotel(id)
+      .then((motel) => {
+        setData(motel.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [id]);
 
   useEffect(() => {
     provinceService
@@ -32,14 +36,10 @@ function PostMotel() {
       });
   }, []);
 
-  const handleSplit = (e) => {
-    return e.split(",")[0];
-  };
-
   useEffect(() => {
-    if (data.province) {
+    if (address.province) {
       provinceService
-        .getDistrict(handleSplit(data.province))
+        .getDistrict(handleSplit(address.province))
         .then((result) => {
           setDistrict(result.districts);
         })
@@ -47,74 +47,52 @@ function PostMotel() {
           console.log(err);
         });
     }
-  }, [data]);
-  
+  }, [address.province]);
+
+  const handleSplit = (e) => {
+    return e.split(",")[0];
+  };
+
   const onSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
-    const formData = new FormData();
-    formData.append("title", data.title);
-    formData.append("description", data.description);
-    formData.append("price", data.price);
-    formData.append("province", data.province.split(",")[1]);
-    formData.append("district", data.district);
-    formData.append("type", data.type);
+    const newData = {
+      ...data,
+      province: address.province.split(",")[1],
+      district: address.district,
+    };
 
-    if (data.imageUrl) {
-      for (let i = 0; i < data.imageUrl.length; i++) {
-        formData.append("images", data.imageUrl[i]);
-      }
-    }
-    try {
-      await motelService
-        .postMotel({ data: formData })
-        .then((motel) => {
-          if (motel.status === 200) {
-            toast.success("Đăng phòng trọ thành công  ", {
-              position: "top-center",
-              autoClose: 5000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "light",
-            });
-            setLoading(false);
-          } else if (motel.status === 400) {
-            toast.error("Thông tin nhập vào chưa chính xác", {
-              position: "top-center",
-              autoClose: 5000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "light",
-            });
-            setLoading(false);
-          }
-        })
-        .catch((error) => console.log(error));
-    } catch (error) {
-      console.log(error);
-    }
+    motelService
+      .editModel({ data: newData, id: id })
+      .then((result) => {
+        if (result.status === 200) {
+          toast.success("Sửa trọ thành công  ", {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
+        }
+      })
+      .catch((err) => console.log(err));
   };
 
   const handleData = (e) => {
     const newData = { ...data };
     newData[e.target.name] = e.target.value;
-    setData(newData);
-    if (data.province !== newData.province) {
+    if (address.province !== newData.province) {
       newData.district = "";
     }
     setData(newData);
   };
 
-  const handleImage = (e) => {
-    const newData = { ...data };
-    newData[e.target.name] = e.target.files;
-    setData(newData);
+  const handleAddress = (e) => {
+    const newData = { ...address };
+    newData[e.target.name] = e.target.value;
+    setAddress({ province: newData.province, district: newData.district });
   };
 
   if (!token) {
@@ -189,7 +167,7 @@ function PostMotel() {
         name="price"
         min={0}
         value={data.price || ""}
-        onChange={(e) => handleData(e)}
+        onChange={(e) => handleAddress(e)}
       />
 
       <select
@@ -206,7 +184,7 @@ function PostMotel() {
         lg:w-full"
         name="province"
         required
-        onChange={(e) => handleData(e)}
+        onChange={(e) => handleAddress(e)}
       >
         <option value="">Chọn tỉnh thành </option>
         {province.map((data) => (
@@ -230,7 +208,7 @@ function PostMotel() {
         lg:w-full"
         name="district"
         required
-        onChange={(e) => handleData(e)}
+        onChange={(e) => handleAddress(e)}
       >
         <option>Chọn quận huyện </option>
         {district &&
@@ -254,6 +232,7 @@ function PostMotel() {
         focus:outline-none
         rounded-3xl
         lg:w-full"
+        value={data.type || ""}
         onChange={(e) => handleData(e)}
         required
       >
@@ -262,23 +241,6 @@ function PostMotel() {
         <option value="Chung cư mini">Chung cư mini</option>
       </select>
 
-      <input
-        type="file"
-        name="imageUrl"
-        className="
-        px-4 
-        py-4 
-        text-2xl 
-        w-3/4
-        my-4
-        rounded-3xl
-        lg:w-full"
-        onChange={(e) => handleImage(e)}
-        accept="image/png,image/jpeg"
-        multiple
-        // required
-        id="avatar"
-      />
       <button
         className="
             mt-4
@@ -292,7 +254,7 @@ function PostMotel() {
           bg-emerald-500 
           "
       >
-        {loading ? "Đang tải ..." : "Đăng phòng trọ"}
+        Thay đổi thông tin
       </button>
 
       <ToastContainer
@@ -311,4 +273,4 @@ function PostMotel() {
   );
 }
 
-export default PostMotel;
+export default EditMotel;

@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import { useLocation, useNavigate } from "react-router-dom";
+import config from "~/config";
 
 function ListItems({ data, isActive }) {
   const navigate = useNavigate();
@@ -14,7 +15,7 @@ function ListItems({ data, isActive }) {
   const handleFilter = () => {
     if (type === data.name) {
       if (!province && !district) {
-        navigate("/");
+        navigate(config.routes.home);
       } else {
         params.delete("type");
         navigate(`?${params.toString()}`);

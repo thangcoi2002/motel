@@ -22,8 +22,8 @@ function DetailUser({ dataUser, dataMotel }) {
           src={dataUser.imageUrl}
           alt={dataUser.fullName}
           className="
-        w-3/4
-        h-[360px]
+        h-[230px]
+        w-[230px]
         sm:h-[500px]
         md:w-[280px]
         md:h-[280px]

@@ -2,9 +2,11 @@ import { httpRequest } from "~/utils/httprequest";
 
 const token = localStorage.token;
 
-export const getAllMotel = async () => {
+export const getAllMotel = async ({ page, perPage }) => {
   try {
-    const res = await httpRequest.get("motel/get-all");
+    const res = await httpRequest.get("motel/get-all", {
+      params: { page, per_page: perPage },
+    });
     return res.data;
   } catch (error) {
     console.log(error);
@@ -60,5 +62,17 @@ export const deleteMotel = async ({ id }) => {
     return res;
   } catch (error) {
     return error.response;
+  }
+};
+
+export const editModel = async ({ data, id }) => {
+  try {
+    const res = await httpRequest.put(`motel/edit-motel/${id}`, data, {
+      headers: { Authorization: "Bearer " + token },
+    });
+
+    return res;
+  } catch (error) {
+    return error;
   }
 };

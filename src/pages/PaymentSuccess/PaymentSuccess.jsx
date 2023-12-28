@@ -33,10 +33,14 @@ function PaymentSuccess() {
     paymentService
       .callbackVnPay({ param: params })
       .then((response) => {
-        if (response.status == 200) {
+        if (response.data.code == "00") {
           setSuccess(true);
           setMessage("Thanh toán thành công");
+        } else if (response.data.code == 24) {
+          setError(true);
+          setMessage("Thanh toán không thành công");
         }
+        console.log(response)
       })
       .catch((err) => {
         if (err.response.status == 400) {
@@ -44,7 +48,7 @@ function PaymentSuccess() {
           setMessage("Thanh toán không thành công");
         }
       });
-  }, [params,success]);
+  }, [params, success]);
 
   return (
     <div className="flex flex-col justify-center items-center h-full">

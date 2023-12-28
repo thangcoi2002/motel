@@ -22,7 +22,7 @@ function DefaultLayout({ children }) {
     setTimeout(() => {
       setIsLoading(true);
     }, 2000);
-    
+
     window.addEventListener("scroll", handleScroll);
 
     return () => {
@@ -44,12 +44,12 @@ function DefaultLayout({ children }) {
       <div className="flex">
         <div
           className="fixed
-      z-10
-      w-full
-      bottom-0 
-      md:relative
-      md:w-1/4
-      mr-4
+                      z-10
+                      w-full
+                      bottom-0 
+                      md:relative
+                      md:w-1/4
+                      mr-4
       "
         >
           <SideBar />
@@ -61,6 +61,7 @@ function DefaultLayout({ children }) {
         >
           {children}
         </div>
+        
         <IoIosArrowUp
           size={25}
           className={`hidden h-[50px] w-[50px] p-5 bottom-5 right-5 rounded-full border border-purple-400 hover:bg-purple-500 cursor-pointer ${

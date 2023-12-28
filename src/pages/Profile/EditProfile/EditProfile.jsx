@@ -92,7 +92,7 @@ function EditProfile() {
   return (
     <form
       onSubmit={(e) => onSubmit(e)}
-      className="ml-16 flex flex-col items-center md:items-start"
+      className="flex flex-col items-center md:items-start"
     >
       <p className="text-2xl font-bold">Thay đổi thông tin cá nhân</p>
       <div className="w-3/4 lg:flex relative">

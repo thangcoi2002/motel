@@ -4,7 +4,6 @@ import InfoItem from "./InfoItem";
 import EmptyClient from "~/components/EmptyClient";
 
 function CardMotel({ data }) {
-  
   if (!data || data.length === 0) {
     return (
       <EmptyClient
@@ -18,7 +17,10 @@ function CardMotel({ data }) {
     <div
       className="
       flex 
-      flex-wrap "
+      flex-wrap 
+      ml-10 
+      mr-10
+      "
     >
       {data.map((item) => (
         <InfoItem key={item._id} data={item} />

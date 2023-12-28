@@ -7,7 +7,7 @@ function ListBookedItem({ data, cancel }) {
   const paymentModal = usePaymentModal();
   
   return (
-    <div className=" flex w-full bg-slate-400  rounded-xl overflow-hidden mb-6 group">
+    <div className=" flex w-full bg-slate-100  rounded-xl overflow-hidden mb-6 group">
       <Link to={`/detail/${data.motelId._id}`}>
         <img
           src={data.motelId.imageUrl[0]}

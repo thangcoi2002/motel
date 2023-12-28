@@ -7,6 +7,7 @@ import {Profile ,EditProfile} from "~/pages/Profile";
 import Favorite from "~/pages/Favorite";
 import Booked from "~/pages/Booked";
 import Detail from "~/pages/Detail";
+import EditMotel from "~/pages/Detail/EditMotel";
 import SearchClient from "~/pages/ClientSearch";
 import NotFound from "~/pages/NotFound";
 import User from "~/pages/User";
@@ -24,6 +25,7 @@ const publicRoutes = [
   { path: config.routes.favorite, component: Favorite },
 
   { path: config.routes.detail, component: Detail },
+  { path: config.routes.editMotel, component: EditMotel },
 
   { path: config.routes.editProfile, component: EditProfile },
   { path: config.routes.postMotel, component: PostMotel },

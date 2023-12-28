@@ -9,12 +9,14 @@ function InfoItem({ data }) {
       className="
     cursor-pointer
     w-full
+    bg-neutral-100
+    overflow-hidden
+    rounded-xl
     md:w-1/3
     lg:w-1/4
     xl:w-1/5
-    pb-10
-    mx-6
-    mt-5
+    md:mx-6
+    md:mt-5
     mb-10
     group"
     >
@@ -28,7 +30,7 @@ function InfoItem({ data }) {
           className="
             w-full
             overflow-hidden
-            rounded-xl"
+            rounded-t-xl"
         >
           <img
             src={data.imageUrl[0]}
@@ -42,9 +44,13 @@ function InfoItem({ data }) {
             "
           />
         </div>
-        <div className="px-4 py-6">
-          <div className="text-2xl font-semibold">{data.title}</div>
-          <div className="mt-4 text-xl">{data.description}</div>
+        <div className="px-4 py-6 overflow-hidden break-words">
+          <div className="text-2xl font-semibold h-[40px] overflow-hidden">
+            {data.title}
+          </div>
+          <div className="mt-4 text-xl h-[36px] overflow-hidden">
+            {data.description}
+          </div>
           <div className="mt-4 text-xl">
             {data.district + " - " + data.province}
           </div>
