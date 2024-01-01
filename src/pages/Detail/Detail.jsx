@@ -31,7 +31,9 @@ function Detail() {
         setIsBooked(data.data.status);
       })
       .catch((err) => console.log(err));
+  }, [id]);
 
+  useEffect(() => {
     if (token) {
       favoriteService
         .getAllFavorite()
@@ -44,7 +46,6 @@ function Detail() {
           }
         })
         .catch((err) => console.log(err));
-
       authService
         .getCurrentUser()
         .then((user) => {
@@ -59,19 +60,11 @@ function Detail() {
   const addFavorite = (id) => {
     if (!token) warningLogin();
     else if (!isFavorite) {
-      favoriteService
-        .addFavorite({ motelId: id })
-        .then(() => {
-          setIsFavorite(true);
-        })
-        .catch((err) => console.log(err));
+      setIsFavorite(true);
+      favoriteService.addFavorite({ motelId: id });
     } else {
-      favoriteService
-        .deleteFavorite({ id: id })
-        .then(() => {
-          setIsFavorite(false);
-        })
-        .catch((err) => console.log(err));
+      setIsFavorite(false);
+      favoriteService.deleteFavorite({ id: id });
     }
   };
 
@@ -152,59 +145,59 @@ function Detail() {
             <BsThreeDots
               onClick={() => setMenu(!menu)}
               className="
-            text-[36px]
-            md:px-4
-            md:py-4
-            text-white
-            md:text-black
-            cursor-pointer
-            absolute
-            right-6
-            top-2"
+              text-[36px]
+              md:px-4
+              md:py-4
+              text-white
+              md:text-black
+              cursor-pointer
+              absolute
+              right-6
+              top-2"
             />
 
             {menu && (
               <div
                 className="
-                flex
-                flex-col
-                bg-slate-100
-                px-2
-                py-4
-                absolute
-                right-6
-                top-16
-                rounded-xl
-                w-[150px]"
+                  flex
+                  flex-col
+                  bg-slate-100
+                  px-2
+                  py-4
+                  absolute
+                  right-6
+                  top-16
+                  rounded-xl
+                  w-[150px]"
               >
                 <button
                   onClick={() => deleteMotel(id)}
                   className="
-              bg-white
-              rounded-2xl
-              mt-4
-              text-xl
-              py-4
-              px-2
-              hover:bg-neutral-100
-              select-none
-          "
+                bg-white
+                rounded-2xl
+                mt-4
+                text-xl
+                py-4
+                px-2
+                hover:bg-neutral-100
+                select-none
+            "
                 >
                   Xóa bài viết
                 </button>
                 <Link
-                to={`/detail/edit/${id}`}
+                  to={`/detail/edit/${id}`}
                   className="
-              bg-white
-              rounded-2xl
-              mt-4
-              text-xl
-              text-center
-              py-4
-              px-2
-              hover:bg-neutral-100
-              select-none
-          "
+                bg-white
+                rounded-2xl
+                mt-4
+                text-xl
+                text-center
+                py-4
+                px-2
+                hover:bg-neutral-100
+                select-none
+            "
                 >
                   Sửa thông tin
                 </Link>
@@ -244,30 +237,30 @@ function Detail() {
             <button
               onClick={() => booked(id)}
               className="
-          border
-          border-green-600
-          bg-neutral-200
-          w-[200px]
-          h-[42px]
-          mt-6
-          rounded-2xl
-          hover:bg-green-600
-          hover:text-white
-          "
+            border
+            border-green-600
+            bg-neutral-200
+            w-[200px]
+            h-[42px]
+            mt-6
+            rounded-2xl
+            hover:bg-green-600
+            hover:text-white
+            "
             >
               Thuê phòng
             </button>
           ) : (
             <button
               className="
-        border
-        w-[200px]
-        h-[42px]
-        mt-6
-        rounded-2xl
-        bg-green-600
-       text-white
-        "
+          border
+          w-[200px]
+          h-[42px]
+          mt-6
+          rounded-2xl
+          bg-green-600
+         text-white
+          "
               disabled
             >
               Đã được thuê
