@@ -71,14 +71,8 @@ function Detail() {
   const booked = (id) => {
     if (!token) warningLogin();
     else {
-      bookedService
-        .booked({ motelId: id })
-        .then((data) => {
-          if (data.status === 200) {
-            setIsBooked(true);
-          }
-        })
-        .catch((err) => console.log(err));
+      setIsBooked(true);
+      bookedService.booked({ motelId: id }).catch((err) => console.log(err));
     }
   };
 
@@ -263,7 +257,7 @@ function Detail() {
           "
               disabled
             >
-              Đã được thuê
+              Phòng đã được thuê
             </button>
           )}
         </div>
