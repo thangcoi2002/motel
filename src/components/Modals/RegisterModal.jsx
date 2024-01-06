@@ -29,8 +29,19 @@ function RegisterModal() {
         }
       })
       .catch((err) => {
-        if (err.response.status === 409) {
+        if (err.response.data.error.keyPattern.username > 0) {
           toast.error("Tài khoản đã tồn tại!", {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+          });
+        } else if (err.response.data.error.keyPattern.email > 0) {
+          toast.error("Email đã tồn tại!", {
             position: "top-center",
             autoClose: 5000,
             hideProgressBar: false,
@@ -129,6 +140,27 @@ function RegisterModal() {
         value={data.email || ""}
         onChange={(e) => handleData(e)}
         autoComplete="email"
+      />
+
+      <input
+        type="number"
+        placeholder="Nhập số điện thoại ..."
+        className="
+      h-[32px]
+      px-6
+      py-10
+      my-3
+      text-2xl
+      rounded-2xl
+      border
+      border-neutral-300
+      outline-none
+      "
+        required
+        name="phone"
+        value={data.phone || ""}
+        onChange={(e) => handleData(e)}
+        autoComplete="phone"
       />
 
       <input

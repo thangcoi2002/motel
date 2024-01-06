@@ -144,9 +144,10 @@ function Modal({
               <div className=" p-6">{body}</div>
               {/*footer*/}
               <div className="md:inline-flex text-xl gap-  p-4">
-                <Button label={actionLabel} />
+                <Button className="border hover:bg-neutral-600 hover:text-white m-1" label={actionLabel} />
                 {secondaryAction && secondaryActionLabel && (
                   <Button
+                    className="border hover:bg-neutral-600 hover:text-white m-1"
                     onClick={handleSecondaryAction}
                     label={secondaryActionLabel}
                   />

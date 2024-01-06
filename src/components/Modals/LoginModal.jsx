@@ -1,9 +1,11 @@
 import { useState } from "react";
+import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
+import routes from "~/config/routes";
 
 import Modal from "./Modal";
 import useLoginModal from "~/hooks/useLoginModal";
 import * as authService from "~/services/authService";
-import { toast } from "react-toastify";
 
 function LoginModal() {
   const loginModal = useLoginModal();
@@ -86,6 +88,9 @@ function LoginModal() {
         onChange={(e) => handleData(e)}
         autoComplete="current-password"
       />
+      <div className="flex justify-end mr-10">
+        <Link to={routes.forgot} className="text-xl" onClick={loginModal.onClose}>Quên mật khẩu</Link>
+      </div>
     </div>
   );
 

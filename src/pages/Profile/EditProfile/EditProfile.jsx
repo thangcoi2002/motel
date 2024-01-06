@@ -46,6 +46,7 @@ function EditProfile() {
     formData.append("fullName", data.fullName);
     formData.append("password", data.password);
     formData.append("email", data.email);
+    formData.append("phone", data.phone);
     formData.append("address", data.address);
     formData.append("imageUrl", image.data);
 
@@ -64,7 +65,7 @@ function EditProfile() {
               progress: undefined,
               theme: "light",
             });
-          }else if(auth.status === 204){
+          } else if (auth.status === 204) {
             toast.error("Dữ liệu nhập vào thiếu", {
               position: "top-center",
               autoClose: 5000,
@@ -109,17 +110,17 @@ function EditProfile() {
             required
             type="text"
             className="
-          border 
-          border-purple-300 
-          px-4 
-          py-4 
-          text-2xl 
-          w-3/4
-          my-4
-          focus:border-blue-400
-          focus:outline-none
-          rounded-3xl
-          lg:w-full
+            border 
+            border-purple-300 
+            px-4 
+            py-4 
+            text-2xl 
+            w-3/4
+            my-4
+            focus:border-blue-400
+            focus:outline-none
+            rounded-3xl
+            lg:w-full
           "
             placeholder="Họ và tên ..."
             autoComplete="fullName"
@@ -130,18 +131,18 @@ function EditProfile() {
           <input
             type="password"
             className="
-          border 
-          border-purple-300 
-          px-4 
-          py-4 
-          text-2xl 
-          w-3/4
-          my-4
-          focus:border-blue-400
-          focus:outline-none
-          rounded-3xl
-          lg:w-full
-          "
+            border 
+            border-purple-300 
+            px-4 
+            py-4 
+            text-2xl 
+            w-3/4
+            my-4
+            focus:border-blue-400
+            focus:outline-none
+            rounded-3xl
+            lg:w-full
+            "
             placeholder="Mật khẩu ..."
             autoComplete="password"
             name="password"
@@ -152,24 +153,48 @@ function EditProfile() {
             required
             type="email"
             className="
-          border 
-          border-purple-300 
-          px-4 
-          py-4 
-          text-2xl 
-          w-3/4
-          my-4
-          focus:border-blue-400
-          focus:outline-none
-          rounded-3xl
-          lg:w-full
-          "
+            border 
+            border-purple-300 
+            px-4 
+            py-4 
+            text-2xl 
+            w-3/4
+            my-4
+            focus:border-blue-400
+            focus:outline-none
+            rounded-3xl
+            lg:w-full
+            "
             placeholder="Email ..."
             autoComplete="email"
             name="email"
             value={data.email || ""}
             onChange={(e) => handleData(e)}
           />
+
+          <input
+            type="number"
+            placeholder="Nhập số điện thoại ..."
+            className="
+            border 
+            border-purple-300 
+            px-4 
+            py-4 
+            text-2xl 
+            w-3/4
+            my-4
+          focus:border-blue-400
+            focus:outline-none
+            rounded-3xl
+            lg:w-full
+            "
+            required
+            name="phone"
+            value={data.phone || ""}
+            onChange={(e) => handleData(e)}
+            autoComplete="phone"
+          />
+
           <input
             required
             type="text"

@@ -14,7 +14,8 @@ const routes = {
   postMotel: "/post-motel",
   PaymentSuccess: "/payment-success",
 
-  search: "/search"
+  search: "/search",
+  forgot: "/forgot",
 };
 
 export default routes;

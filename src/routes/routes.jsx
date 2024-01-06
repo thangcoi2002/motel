@@ -9,6 +9,7 @@ import Booked from "~/pages/Booked";
 import Detail from "~/pages/Detail";
 import EditMotel from "~/pages/Detail/EditMotel";
 import SearchClient from "~/pages/ClientSearch";
+import ForgotPassword from "~/pages/ForgotPassword";
 import NotFound from "~/pages/NotFound";
 import User from "~/pages/User";
 import PostMotel from "~/pages/PostMotel";
@@ -32,6 +33,7 @@ const publicRoutes = [
   { path: config.routes.PaymentSuccess, component: PaymentSuccess },
 
   { path: config.routes.search, component: SearchClient },
+  { path: config.routes.forgot, component: ForgotPassword ,Layout: null},
 ];
 
 const privateRoutes = [];
