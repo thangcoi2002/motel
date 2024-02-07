@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const apiVietNam = "https://provinces.open-api.vn/api/";
+const apiVietNam = "https://provinces-api.vercel.app/api/";
 
 export const getProvince = async () => {
   try {

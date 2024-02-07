@@ -249,6 +249,7 @@ function EditMotel() {
           h-20
           hover:font-bold
           text-xl
+          text-white
           border
           rounded-3xl
           bg-emerald-500 
